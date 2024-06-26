@@ -8,6 +8,7 @@ import steparrik.profilemicroservice.model.user.User;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class RegistrationUserDto {
     private String password;
     private String confirmPassword;

@@ -1,4 +1,4 @@
-package steparrik.profilemicroservice.service;
+package steparrik.profilemicroservice.utils.token;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.Date;
-@Service
-public class JwtTokenService {
+@Component
+public class JwtTokenUtil {
     @Value("${jwt.secret}")
     private String secret;
 
@@ -19,8 +19,6 @@ public class JwtTokenService {
     private Duration jwtLifetime;
 
     public String generateToken(UserDetails userDetails) {
-
-
         Date issuedDate = new Date();
         Date expiredDate = new Date(issuedDate.getTime() + jwtLifetime.toMillis());
         return Jwts.builder()

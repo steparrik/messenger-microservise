@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import steparrik.profilemicroservice.dto.user.EditUserDto;
-import steparrik.profilemicroservice.service.manager.AuthManager;
-import steparrik.profilemicroservice.service.manager.EditManager;
-import steparrik.profilemicroservice.service.manager.RegistrationManager;
-import steparrik.profilemicroservice.service.manager.ProfileManager;
+import steparrik.profilemicroservice.manager.AuthManager;
+import steparrik.profilemicroservice.manager.EditManager;
+import steparrik.profilemicroservice.manager.RegistrationManager;
+import steparrik.profilemicroservice.manager.ProfileManager;
 import steparrik.profilemicroservice.dto.user.AuthUserDto;
 import steparrik.profilemicroservice.dto.user.RegistrationUserDto;
 
@@ -38,7 +38,6 @@ public class MainController {
 
     @PutMapping("/profile")
     public ResponseEntity<?> editProfile(@RequestBody EditUserDto editUserDto, Principal principal) {
-        System.out.println(principal.getName());
         return editManager.editUser(editUserDto, principal);
     }
 

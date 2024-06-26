@@ -1,4 +1,4 @@
-package steparrik.profilemicroservice.config;
+package steparrik.profilemicroservice.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import steparrik.profilemicroservice.config.token.JwtRequestFilter;
+import steparrik.profilemicroservice.config.security.filter.JwtRequestFilter;
 import steparrik.profilemicroservice.service.UserDetailService;
-import steparrik.profilemicroservice.utils.exceptions.JwtTokenException;
 
 import java.util.Arrays;
 
@@ -32,8 +31,6 @@ import java.util.Arrays;
 public class SecurityConfig {
     private final UserDetailService userDetailService;
     private final JwtRequestFilter jwtRequestFilter;
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -41,7 +38,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth", "/", "/registration").permitAll()
+                        .requestMatchers("/auth", "/registration").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

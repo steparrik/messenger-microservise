@@ -32,8 +32,6 @@ public class Chat {
 
     @OneToMany(mappedBy = "chats")
     private List<Message> messages;
-
 }
 
 
-//Передавать Principal чтобы фронт понимал имя чата

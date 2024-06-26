@@ -2,12 +2,11 @@ package steparrik.chatsmicroservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import steparrik.chatsmicroservice.dto.chat.ChatForMenuChatsDto;
 import steparrik.chatsmicroservice.dto.message.MessageDTO;
-import steparrik.chatsmicroservice.service.manager.*;
+import steparrik.chatsmicroservice.manager.*;
+import steparrik.chatsmicroservice.manager.*;
 
 import java.security.Principal;
 

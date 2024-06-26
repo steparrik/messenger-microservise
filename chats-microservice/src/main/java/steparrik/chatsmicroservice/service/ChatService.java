@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class ChatService {
     private final ChatRepository chatRepository;
     private final ChatForMenuChatsMapper chatForMenuChatsMapper;
-    private final UserService userService;
 
     public void save(Chat chat) {
         chatRepository.save(chat);
@@ -41,13 +40,11 @@ public class ChatService {
         }).collect(Collectors.toList());
     }
 
-    public ResponseEntity<?> createChat(User owner, ChatForMenuChatsDto chatForMenuChatsDto, List<User> participants) {
+    public Chat createChat(ChatForMenuChatsDto chatForMenuChatsDto, List<User> participants) {
         Chat chat = chatForMenuChatsMapper.toEntity(chatForMenuChatsDto);
-        participants.add(owner);
-        System.out.println(participants);
         chat.setParticipants(participants);
         chatRepository.save(chat);
-        return ResponseEntity.ok(chooseDialogName(owner, chatForMenuChatsMapper.toDto(chat), chat));
+        return chat;
     }
 
     public ChatForMenuChatsDto chooseDialogName(User user, ChatForMenuChatsDto chatForMenuChatsDto, Chat chat) {
@@ -63,7 +60,7 @@ public class ChatService {
 
     public boolean findYetAddedDialogs(User owner, User participant) {
         for(Chat chat : owner.getChats()){
-            if(chat.getParticipants().contains(participant)){
+            if(chat.getParticipants().contains(participant) && chat.getChatType().equals(ChatType.DIALOG)){
                 return  true;
             }
         }

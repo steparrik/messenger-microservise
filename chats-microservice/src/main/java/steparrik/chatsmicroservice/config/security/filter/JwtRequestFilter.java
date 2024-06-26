@@ -1,4 +1,4 @@
-package steparrik.profilemicroservice.config.token;
+package steparrik.chatsmicroservice.config.security.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -13,19 +13,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import steparrik.profilemicroservice.service.JwtTokenService;
-
+import steparrik.chatsmicroservice.utils.token.JwtTokenUtil;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
-    private final JwtTokenService jwtTokenService;
+    private final JwtTokenUtil jwtTokenUtil;
 
-
-    protected void doFilterInternal(HttpServletRequest request,
+    public void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
@@ -35,7 +34,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             try {
-                username = jwtTokenService.getUsername(jwt);
+                username = jwtTokenUtil.getUsername(jwt);
             } catch (ExpiredJwtException e) {
                 log.info("Время использования токена истекло");
 
@@ -47,12 +46,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    username, null, List.of()
+                    username, null, new ArrayList<>()
             );
             SecurityContextHolder.getContext().setAuthentication(token);
         }
         filterChain.doFilter(request, response);
-
-
     }
 }

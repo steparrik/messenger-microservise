@@ -1,4 +1,4 @@
-package steparrik.chatsmicroservice.service.manager;
+package steparrik.chatsmicroservice.manager;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

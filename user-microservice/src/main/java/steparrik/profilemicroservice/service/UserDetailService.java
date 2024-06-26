@@ -29,11 +29,4 @@ public class UserDetailService implements UserDetailsService {
         );
     }
 
-    public User getPrincipalUser(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserWithDetails userWithDetails = (UserWithDetails) authentication.getDetails();
-        return userWithDetails.getUser();
-    }
-
-
 }

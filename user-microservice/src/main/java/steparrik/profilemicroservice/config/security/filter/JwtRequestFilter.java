@@ -1,4 +1,4 @@
-package steparrik.chatsmicroservice.config.token;
+package steparrik.profilemicroservice.config.security.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -13,8 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import steparrik.chatsmicroservice.utils.token.JwtTokenUtils;
-
+import steparrik.profilemicroservice.utils.token.JwtTokenUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
-    private final JwtTokenUtils jwtTokenUtils;
+    private final JwtTokenUtil jwtTokenUtil;
 
 
     protected void doFilterInternal(HttpServletRequest request,
@@ -36,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
             try {
-                username = jwtTokenUtils.getUsername(jwt);
+                username = jwtTokenUtil.getUsername(jwt);
             } catch (ExpiredJwtException e) {
                 log.info("Время использования токена истекло");
 

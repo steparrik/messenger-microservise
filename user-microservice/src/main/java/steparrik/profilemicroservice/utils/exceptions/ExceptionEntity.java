@@ -1,4 +1,4 @@
-package steparrik.chatsmicroservice.dto.dtoExceptions;
+package steparrik.profilemicroservice.utils.exceptions;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class ExceptionDto {
+public class ExceptionEntity {
     private String message;
     private LocalDateTime localDateTime;
 }

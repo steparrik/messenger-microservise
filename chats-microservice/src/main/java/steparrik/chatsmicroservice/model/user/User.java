@@ -32,7 +32,7 @@ public class User {
     @NotEmpty
     private String phoneNumber;
 
-    private String FullName;
+    private String fullName;
 
     @OneToMany(mappedBy = "sender")
     private List<Message> messages;
@@ -40,11 +40,10 @@ public class User {
     @ManyToMany(mappedBy = "participants")
     private List<Chat> chats;
 
-
     public User(String password, String username, String phoneNumber, String fullName) {
         this.password = password;
         this.username = username;
         this.phoneNumber = phoneNumber;
-        FullName = fullName;
+        this.fullName = fullName;
     }
 }

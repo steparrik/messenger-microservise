@@ -1,18 +1,14 @@
-package steparrik.profilemicroservice.service.manager;
+package steparrik.profilemicroservice.manager;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import steparrik.profilemicroservice.dto.token.JwtResponseDto;
 import steparrik.profilemicroservice.dto.user.EditUserDto;
-import steparrik.profilemicroservice.dto.user.ProfileUserDto;
 import steparrik.profilemicroservice.model.user.User;
-import steparrik.profilemicroservice.service.JwtTokenService;
+import steparrik.profilemicroservice.utils.token.JwtTokenUtil;
 import steparrik.profilemicroservice.service.UserDetailService;
 import steparrik.profilemicroservice.service.UserService;
 import steparrik.profilemicroservice.utils.mapper.user.ProfileUserMapper;
@@ -26,7 +22,7 @@ public class EditManager {
     private final ProfileUserMapper profileUserMapper;
     private final UserDetailService userDetailService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final JwtTokenService jwtTokenService;
+    private final JwtTokenUtil jwtTokenUtil;
 
     public ResponseEntity<?> editUser(EditUserDto editUserDto, Principal principal) {
         User user = userService.findUserByUsername(principal.getName()).get();
@@ -44,7 +40,7 @@ public class EditManager {
         }
         userService.save(user);
         UserDetails userDetails = userDetailService.loadUserByUsername(user.getUsername());
-        String token = jwtTokenService.generateToken(userDetails);
+        String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponseDto(token));
     }
 }

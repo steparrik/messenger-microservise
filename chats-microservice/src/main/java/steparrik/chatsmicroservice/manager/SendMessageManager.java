@@ -1,18 +1,15 @@
-package steparrik.chatsmicroservice.service.manager;
+package steparrik.chatsmicroservice.manager;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import steparrik.chatsmicroservice.dto.chat.ChatForCorrespondDto;
 import steparrik.chatsmicroservice.dto.message.MessageDTO;
 import steparrik.chatsmicroservice.model.chat.Chat;
-import steparrik.chatsmicroservice.model.chat.ChatType;
 import steparrik.chatsmicroservice.model.message.Message;
 import steparrik.chatsmicroservice.model.user.User;
 import steparrik.chatsmicroservice.service.ChatService;
 import steparrik.chatsmicroservice.service.MessageService;
 import steparrik.chatsmicroservice.service.UserService;
-import steparrik.chatsmicroservice.utils.mapper.chat.ChatForCorrespondMapper;
 import steparrik.chatsmicroservice.utils.mapper.message.MessageMapper;
 
 import java.security.Principal;

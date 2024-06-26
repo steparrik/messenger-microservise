@@ -1,4 +1,4 @@
-package steparrik.chatsmicroservice.service.manager;
+package steparrik.chatsmicroservice.manager;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,6 @@ import java.util.Optional;
 public class AddParticipantManager {
     private final UserService userService;
     private final ChatService chatService;
-
 
     public ResponseEntity<?> addParticipant(long id, String username, String phoneNumber, Principal principal) {
         if((username==null && phoneNumber==null) || (username.isEmpty() && phoneNumber.isEmpty())){
